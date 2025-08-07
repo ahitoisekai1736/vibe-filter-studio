@@ -2,41 +2,62 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
-All colors MUST be HSL.
-*/
+/* Professional Filter App Design System - Dark theme with purple/blue gradients */
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    /* Dark Professional Theme */
+    --background: 222 47% 3%;
+    --foreground: 210 40% 98%;
 
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card: 222 47% 6%;
+    --card-foreground: 210 40% 98%;
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --popover: 222 47% 6%;
+    --popover-foreground: 210 40% 98%;
 
-    --primary: 222.2 47.4% 11.2%;
+    /* Purple/Blue Professional Palette */
+    --primary: 258 90% 65%;
     --primary-foreground: 210 40% 98%;
+    --primary-glow: 258 90% 75%;
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    --secondary: 222 47% 11%;
+    --secondary-foreground: 210 40% 98%;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    --muted: 222 47% 11%;
+    --muted-foreground: 215 20% 65%;
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    --accent: 258 90% 65%;
+    --accent-foreground: 210 40% 98%;
 
-    --destructive: 0 84.2% 60.2%;
+    --destructive: 0 84% 60%;
     --destructive-foreground: 210 40% 98%;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    --border: 222 47% 15%;
+    --input: 222 47% 11%;
+    --ring: 258 90% 65%;
 
-    --radius: 0.5rem;
+    --radius: 0.75rem;
+
+    /* Professional Gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(258 90% 65%), hsl(270 90% 70%));
+    --gradient-secondary: linear-gradient(135deg, hsl(222 47% 11%), hsl(222 47% 15%));
+    --gradient-hero: linear-gradient(135deg, hsl(258 90% 65%) 0%, hsl(270 90% 70%) 50%, hsl(280 90% 75%) 100%);
+    --gradient-card: linear-gradient(135deg, hsl(222 47% 6% / 0.8), hsl(222 47% 11% / 0.9));
+    
+    /* Glass Morphism */
+    --glass-background: hsl(222 47% 11% / 0.1);
+    --glass-border: hsl(258 90% 65% / 0.2);
+    --glass-shadow: 0 8px 32px hsl(222 47% 3% / 0.37);
+    
+    /* Professional Shadows */
+    --shadow-glow: 0 0 40px hsl(258 90% 65% / 0.3);
+    --shadow-card: 0 4px 20px hsl(222 47% 3% / 0.5);
+    --shadow-button: 0 2px 10px hsl(258 90% 65% / 0.2);
+
+    /* Animations */
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-bounce: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
 
     --sidebar-background: 0 0% 98%;
 
@@ -100,6 +121,87 @@ All colors MUST be HSL.
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground font-sans;
+    background: var(--gradient-secondary);
+  }
+}
+
+@layer components {
+  /* Glass Card Component */
+  .glass-card {
+    @apply backdrop-blur-xl border rounded-lg;
+    background: var(--glass-background);
+    border-color: var(--glass-border);
+    box-shadow: var(--glass-shadow);
+  }
+
+  /* Professional Button Variants */
+  .btn-hero {
+    @apply px-8 py-4 rounded-lg font-semibold text-primary-foreground;
+    background: var(--gradient-primary);
+    box-shadow: var(--shadow-button);
+    transition: var(--transition-smooth);
+  }
+
+  .btn-hero:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-glow);
+  }
+
+  .btn-glass {
+    @apply backdrop-blur-lg border rounded-lg px-6 py-3 font-medium;
+    background: var(--glass-background);
+    border-color: var(--glass-border);
+    transition: var(--transition-smooth);
+  }
+
+  .btn-glass:hover {
+    background: hsl(var(--primary) / 0.1);
+    border-color: hsl(var(--primary) / 0.3);
+  }
+
+  /* Filter Card Animation */
+  .filter-card {
+    @apply transform transition-all duration-300 hover:scale-105;
+    box-shadow: var(--shadow-card);
+  }
+
+  .filter-card:hover {
+    box-shadow: var(--shadow-glow);
+  }
+
+  /* Animated Gradient Text */
+  .gradient-text {
+    background: var(--gradient-hero);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-size: 200% 200%;
+    animation: gradient-shift 3s ease infinite;
+  }
+
+  @keyframes gradient-shift {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+  }
+
+  /* Professional Slider Styles */
+  .color-slider {
+    @apply w-full h-2 rounded-lg appearance-none cursor-pointer;
+    background: var(--gradient-secondary);
+    outline: none;
+  }
+
+  .color-slider::-webkit-slider-thumb {
+    @apply w-5 h-5 rounded-full cursor-pointer;
+    appearance: none;
+    background: var(--gradient-primary);
+    box-shadow: var(--shadow-button);
+  }
+
+  .color-slider::-moz-range-thumb {
+    @apply w-5 h-5 rounded-full cursor-pointer border-0;
+    background: var(--gradient-primary);
+    box-shadow: var(--shadow-button);
   }
 }
