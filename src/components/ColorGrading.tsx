@@ -1,32 +1,22 @@
-import { useState } from "react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Slider } from "@/components/ui/slider";
 import { RotateCcw, Palette, Sun, Moon, Contrast } from "lucide-react";
-
+import { useColorGrading } from "@/context/color-grading";
+ 
 export const ColorGrading = () => {
-  const [brightness, setBrightness] = useState([100]);
-  const [contrast, setContrast] = useState([100]);
-  const [saturation, setSaturation] = useState([100]);
-  const [temperature, setTemperature] = useState([0]);
-  const [tint, setTint] = useState([0]);
-  const [exposure, setExposure] = useState([0]);
-
+  const { state, setState, reset, applyPreset } = useColorGrading();
+ 
   const resetAll = () => {
-    setBrightness([100]);
-    setContrast([100]);
-    setSaturation([100]);
-    setTemperature([0]);
-    setTint([0]);
-    setExposure([0]);
+    reset();
   };
 
   const controls = [
     {
       icon: Sun,
       label: "Brightness",
-      value: brightness,
-      setValue: setBrightness,
+      value: [state.brightness],
+      setValue: (v: number[]) => setState({ brightness: v[0] }),
       min: 0,
       max: 200,
       step: 1
@@ -34,8 +24,8 @@ export const ColorGrading = () => {
     {
       icon: Contrast,
       label: "Contrast", 
-      value: contrast,
-      setValue: setContrast,
+      value: [state.contrast],
+      setValue: (v: number[]) => setState({ contrast: v[0] }),
       min: 0,
       max: 200,
       step: 1
@@ -43,8 +33,8 @@ export const ColorGrading = () => {
     {
       icon: Palette,
       label: "Saturation",
-      value: saturation,
-      setValue: setSaturation,
+      value: [state.saturation],
+      setValue: (v: number[]) => setState({ saturation: v[0] }),
       min: 0,
       max: 200,
       step: 1
@@ -52,8 +42,8 @@ export const ColorGrading = () => {
     {
       icon: Sun,
       label: "Temperature",
-      value: temperature,
-      setValue: setTemperature,
+      value: [state.temperature],
+      setValue: (v: number[]) => setState({ temperature: v[0] }),
       min: -100,
       max: 100,
       step: 1
@@ -61,8 +51,8 @@ export const ColorGrading = () => {
     {
       icon: Moon,
       label: "Tint",
-      value: tint,
-      setValue: setTint,
+      value: [state.tint],
+      setValue: (v: number[]) => setState({ tint: v[0] }),
       min: -100,
       max: 100,
       step: 1
@@ -70,8 +60,8 @@ export const ColorGrading = () => {
     {
       icon: Sun,
       label: "Exposure",
-      value: exposure,
-      setValue: setExposure,
+      value: [state.exposure],
+      setValue: (v: number[]) => setState({ exposure: v[0] }),
       min: -100,
       max: 100,
       step: 1
