@@ -1,3 +1,4 @@
+
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Slider } from "@/components/ui/slider";
@@ -125,14 +126,7 @@ export const ColorGrading = () => {
                 variant="outline"
                 size="sm"
                 className="btn-glass text-xs"
-                onClick={() => {
-                  setBrightness([preset.settings[0]]);
-                  setContrast([preset.settings[1]]);
-                  setSaturation([preset.settings[2]]);
-                  setTemperature([preset.settings[3]]);
-                  setTint([preset.settings[4]]);
-                  setExposure([preset.settings[5]]);
-                }}
+                onClick={() => applyPreset(preset.settings as [number, number, number, number, number, number])}
               >
                 {preset.name}
               </Button>
